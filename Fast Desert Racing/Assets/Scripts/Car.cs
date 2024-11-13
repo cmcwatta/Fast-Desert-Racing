@@ -23,7 +23,7 @@ public class Car : MonoBehaviour
     [SerializeField]
     private float centreOfGravityOffset = -1f;
     [SerializeField]
-    private bool allowUse;
+    public bool allowUse;
 
     [Header("Mod")]
     [SerializeField]

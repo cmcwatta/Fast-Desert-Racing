@@ -4,7 +4,11 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+public static class GameData
+{
+    public static GameObject CarPrefab;
+}
 
 public class CarShowcase : MonoBehaviour
 {
@@ -25,7 +29,6 @@ public class CarShowcase : MonoBehaviour
     [Header("Cars")]
     [SerializeField]
     private GameObject[] cars;
-    private GameObject _curCar;
     private int _curCarIndex = 0;
 
     // Start is called before the first frame update
@@ -51,7 +54,7 @@ public class CarShowcase : MonoBehaviour
 
             if (vInput != 0 && !switchedStyle)
             {
-                _curCar?.GetComponent<Car>().SwitchBodies(vInput > 0 ? true : false);
+                GameData.CarPrefab?.GetComponent<Car>().SwitchBodies(vInput > 0 ? true : false);
                 switchedStyle = true;
             }
             if (vInput == 0) switchedStyle = false;
@@ -65,15 +68,23 @@ public class CarShowcase : MonoBehaviour
 
     void SpawnCar(bool right = false, bool notSwitch = false)
     {
-        if (_curCar) Destroy(_curCar);
+        if (GameData.CarPrefab) Destroy(GameData.CarPrefab);
         if (notSwitch) _curCarIndex += right ? 1 : -1;
         if (_curCarIndex >= cars.Length) _curCarIndex = 0;
         else if (_curCarIndex < 0) _curCarIndex = cars.Length - 1;
         GameObject car = cars[notSwitch ? _curCarIndex : 0];
 
-        _curCar = Instantiate(car, spawnLocation.position, Quaternion.identity, showcasePlatform);
+        GameData.CarPrefab = Instantiate(car, spawnLocation.position, Quaternion.identity, showcasePlatform);
 
         carName.text = car.name;
     }
 
+    public void StartPlaying()
+    {
+        GameData.CarPrefab.transform.parent = null;
+
+        DontDestroyOnLoad(GameData.CarPrefab);
+
+        SceneManager.LoadScene("Racing");
+    }
 }
