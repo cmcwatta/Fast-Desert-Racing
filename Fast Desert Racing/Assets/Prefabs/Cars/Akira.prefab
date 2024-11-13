@@ -328,8 +328,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.34
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
+    spring: 40000
+    damper: 9000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
@@ -416,8 +416,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.34
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
+    spring: 40000
+    damper: 9000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
@@ -504,8 +504,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.34
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
+    spring: 40000
+    damper: 9000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
@@ -803,7 +803,7 @@ MonoBehaviour:
   - {fileID: 2959467708922500008, guid: 13580105f50e1f84091f009a101cc714, type: 3}
   - {fileID: 2959467708922500008, guid: de6ec406e3f1a164e99510059b0971cc, type: 3}
   - {fileID: 2959467708922500008, guid: 31985faabadbc49449ecd281eea012a8, type: 3}
-  - {fileID: 2959467708922500008, guid: aa769d2deab0dd14aa4e56d21e346345, type: 3}
+  - {fileID: 2959467708922500008, guid: b5fb5aae99d32bd47a43cfca7c036ee1, type: 3}
   - {fileID: 2959467708922500008, guid: 83a4255c69a6f884b9e16248c1781802, type: 3}
   - {fileID: 2959467708922500008, guid: dd840ba5915a83040951fde2d97f476d, type: 3}
   meshFilter: {fileID: 4848279313336992174}
@@ -893,8 +893,8 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.34
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
+    spring: 40000
+    damper: 9000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
