@@ -27,9 +27,4 @@ public class RacingManager : MonoBehaviour
         vCam.Follow = _car.transform;
         _car.GetComponent<Car>().allowUse = true;
     }
-
-    private void Update()
-    {
-        
-    }
 }

@@ -47,9 +47,9 @@ public class CarShowcase : MonoBehaviour
             if (hInput != 0)
             {
                 lastInput = hInput;
-                showcasePlatform.Rotate(Vector3.down * hInput, rotateSpeed);
+                showcasePlatform.Rotate(Vector3.down * hInput, Time.deltaTime * rotateSpeed);
             }
-            else showcasePlatform.Rotate(Vector3.down * lastInput, rotateSpeed / 10);
+            else showcasePlatform.Rotate(Vector3.down * lastInput, Time.deltaTime * rotateSpeed / 10);
 
 
             if (vInput != 0 && !switchedStyle)

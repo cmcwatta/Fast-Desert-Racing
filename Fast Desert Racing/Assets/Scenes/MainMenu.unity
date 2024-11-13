@@ -2691,7 +2691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   showcasePlatform: {fileID: 1168975319}
   spawnLocation: {fileID: 1273514567}
-  rotateSpeed: 0.85
+  rotateSpeed: 100
   allowRotate: 0
   carName: {fileID: 1684566392}
   cars:
@@ -2700,6 +2700,7 @@ MonoBehaviour:
   - {fileID: 3274143864067136122, guid: 35ca81e3faedf0b458a6d98c7f079b3c, type: 3}
   - {fileID: 2814398778851431825, guid: d87309c6967378141af4829cb9bd1632, type: 3}
   - {fileID: 4310643855908473031, guid: 9e093e40b2674304390ba5543868608e, type: 3}
+  - {fileID: 7723344392680450752, guid: 4d0f5574b42072b4b9b78b2b7c71eac9, type: 3}
 --- !u!1001 &805578464
 PrefabInstance:
   m_ObjectHideFlags: 0

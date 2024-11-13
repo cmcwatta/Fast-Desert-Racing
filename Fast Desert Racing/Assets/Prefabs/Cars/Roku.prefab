@@ -223,9 +223,6 @@ MonoBehaviour:
   - {fileID: 270868938265676902}
   - {fileID: 7389537867796819932}
   - {fileID: 1291008766246958904}
-  wheelsSteering:
-  - {fileID: 3292296142983698620, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
-  - {fileID: 1922993832496002472, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
   steeringRange: 15
   steeringSpeed: 5
   speed: 5
@@ -249,7 +246,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 356344585665278795}
   serializedVersion: 4
-  m_Mass: 750
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
