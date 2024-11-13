@@ -8,6 +8,8 @@ public class Car : MonoBehaviour
     [SerializeField]
     private Transform[] wheels;
     [SerializeField]
+    private Wheel[] wheelsCollider;
+    [SerializeField]
     private Transform[] wheelsSteering;
     [SerializeField]
     private float steeringRange;
@@ -19,11 +21,15 @@ public class Car : MonoBehaviour
     private float speed;
     private float _curSpeed;
     [SerializeField]
+    private float brake;
+    [SerializeField]
     private Rigidbody rb;
+    [SerializeField]
+    public float centreOfGravityOffset = -1f;
 
     void Start()
     {
-        
+        rb.centerOfMass += Vector3.up * centreOfGravityOffset;
     }
 
     void Update()
@@ -37,24 +43,36 @@ public class Car : MonoBehaviour
 
     void UpdateWheels(float vInput, float hInput)
     {
-        foreach (Transform wheel in wheels)
-        {
-            wheel.Rotate(vInput > 0 ? rb.velocity.magnitude : -rb.velocity.magnitude, 0, 0);
-        }
-
-        foreach (Transform wheel in wheelsSteering)
-        {
-            wheel.localRotation = Quaternion.Lerp(
-            wheel.localRotation,
-            Quaternion.Euler(0, hInput * steeringRange, 0),
-            Time.deltaTime * steeringSpeed);
-        }
     }
 
     void UpdateMovement(float vInput, float hInput)
     {
-        rb.AddForce(transform.forward * vInput * speed, ForceMode.Acceleration);
+        //rb.AddForce(transform.forward * vInput * speed, ForceMode.Acceleration);
 
-        transform.Rotate(0, ((hInput * (steeringSpeed * Time.deltaTime)) * rb.velocity.magnitude), 0);
+        //transform.Rotate(0, ((hInput * (steeringSpeed * Time.deltaTime)) * rb.velocity.magnitude), 0);
+
+        foreach (var wheel in wheelsCollider)
+        {
+            if (wheel.steerable)
+            {
+                wheel.WheelCollider.steerAngle = hInput * steeringRange;
+            }
+
+            if (vInput != 0)
+            {
+                if (wheel.motorized)
+                {
+                    wheel.WheelCollider.motorTorque = vInput * speed * 100;
+                }
+                wheel.WheelCollider.brakeTorque = 0;
+            }
+
+            if (Input.GetKey(KeyCode.Space))
+            {
+                wheel.WheelCollider.brakeTorque = brake * 50;
+
+                wheel.WheelCollider.motorTorque = 0;
+            }
+        }
     }
 }
