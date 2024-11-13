@@ -6261,7 +6261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4531935121897006226, guid: 8af5d5965bf2a284d815d364b857b925, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -36.818054
+      value: -27.16
       objectReference: {fileID: 0}
     - target: {fileID: 4531935121897006226, guid: 8af5d5965bf2a284d815d364b857b925, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23197,6 +23197,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1243296231929915147, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1243296231929915147, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259691701052964052, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
+      propertyPath: m_Mass
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1259691701052964052, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283119234801925520, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283119234801925520, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3468981267214548073, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3468981267214548073, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260425639030566292, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
+      propertyPath: m_ForwardFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4260425639030566292, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
+      propertyPath: m_SidewaysFriction.m_Stiffness
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5755844691657049355, guid: ed66ed0cfe100bf4fae2ccd4ebdd8ec8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -18.97
