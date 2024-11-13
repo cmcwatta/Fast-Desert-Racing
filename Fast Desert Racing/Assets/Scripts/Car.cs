@@ -6,11 +6,7 @@ public class Car : MonoBehaviour
 {
     [Header("Wheels")]
     [SerializeField]
-    private Transform[] wheels;
-    [SerializeField]
     private Wheel[] wheelsCollider;
-    [SerializeField]
-    private Transform[] wheelsSteering;
     [SerializeField]
     private float steeringRange;
     [SerializeField]
@@ -25,7 +21,16 @@ public class Car : MonoBehaviour
     [SerializeField]
     private Rigidbody rb;
     [SerializeField]
-    public float centreOfGravityOffset = -1f;
+    private float centreOfGravityOffset = -1f;
+    [SerializeField]
+    private bool allowUse;
+
+    [Header("Mod")]
+    [SerializeField]
+    private Mesh[] bodies;
+    private int _curBody;
+    [SerializeField]
+    private MeshFilter meshFilter;
 
     void Start()
     {
@@ -34,6 +39,8 @@ public class Car : MonoBehaviour
 
     void Update()
     {
+        if (!allowUse) return;
+
         float vInput = Input.GetAxis("Vertical");
         float hInput = Input.GetAxis("Horizontal");
 
@@ -75,4 +82,13 @@ public class Car : MonoBehaviour
             }
         }
     }
+
+    public void SwitchBodies(bool right)
+    {
+        _curBody += right ? 1 : -1;
+        if (_curBody >= bodies.Length) _curBody = 0;
+        else if (_curBody < 0) _curBody = bodies.Length - 1;
+        meshFilter.mesh = bodies[_curBody];
+    }
+
 }

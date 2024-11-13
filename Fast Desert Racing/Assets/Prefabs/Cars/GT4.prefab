@@ -530,7 +530,7 @@ GameObject:
   - component: {fileID: 3531760894707012967}
   - component: {fileID: 1259691701052964052}
   m_Layer: 0
-  m_Name: GT4_Red
+  m_Name: GT4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -584,6 +584,13 @@ MonoBehaviour:
   brake: 5
   rb: {fileID: 1259691701052964052}
   centreOfGravityOffset: -1
+  allowUse: 0
+  bodies:
+  - {fileID: 2959467708922500008, guid: 4fccd847781c94a46a8754317be4527a, type: 3}
+  - {fileID: 2959467708922500008, guid: 28873584d7ea970459940d551862a3cd, type: 3}
+  - {fileID: 2959467708922500008, guid: 8818235ced207e447b0b83a4d0c08c40, type: 3}
+  - {fileID: 2959467708922500008, guid: aa769d2deab0dd14aa4e56d21e346345, type: 3}
+  meshFilter: {fileID: 3126381407763232569}
 --- !u!54 &1259691701052964052
 Rigidbody:
   m_ObjectHideFlags: 0
