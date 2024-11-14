@@ -12,6 +12,10 @@ GameObject:
   - component: {fileID: 587064762312144834}
   - component: {fileID: 2795575730073117764}
   - component: {fileID: 7380898798862005356}
+  - component: {fileID: 1143272565015351317}
+  - component: {fileID: 295202602001582027}
+  - component: {fileID: -6268924859370574705}
+  - component: {fileID: 5082451202743788756}
   m_Layer: 0
   m_Name: Hanna
   m_TagString: Untagged
@@ -48,6 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235ed6f68816b954c8cf5bcecf119cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 56ba4ec8-07cb-4636-aa2c-bd5b38112266
+  Reliability: 1
+  LocalMethodBehavior: 1
   wheelsCollider:
   - {fileID: 3018219230094409112}
   - {fileID: 2098909051386223813}
@@ -109,6 +117,115 @@ MonoBehaviour:
   LeftWheel: {fileID: 4443074242703681853}
   RightWheel: {fileID: 6170072848249892170}
   AntiRoll: 5000
+--- !u!114 &1143272565015351317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2814398778851431825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2141718255, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  IsPossessor: 0
+  IsPossessed: 0
+  OnPossessed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUnpossessed:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &295202602001582027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2814398778851431825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1312809854, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 5cac38ea-1d66-40b5-a929-54a047fae496
+  BucketBehaviors:
+  - Name: Min
+    NetLOD: 0
+    Frequency: -1
+  - Name: Low
+    NetLOD: 1
+    Frequency: 0
+  - Name: Mid
+    NetLOD: 2
+    Frequency: 0
+  - Name: High
+    NetLOD: 3
+    Frequency: 0
+  - Name: Max
+    NetLOD: 4
+    Frequency: 120
+  Reliability: 2
+  UseGlobalPosition: 0
+  OnlySyncFromRoomOwner: 0
+  refreshRate: 30
+  SyncedAxes: 511
+--- !u!114 &-6268924859370574705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2814398778851431825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1576325847, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 47c7a764-8ec6-485e-af87-51d1863f148a
+  BucketBehaviors:
+  - Name: Min
+    NetLOD: 0
+    Frequency: -1
+  - Name: Low
+    NetLOD: 1
+    Frequency: 10
+  - Name: Mid
+    NetLOD: 2
+    Frequency: 30
+  - Name: High
+    NetLOD: 3
+    Frequency: 50
+  - Name: Max
+    NetLOD: 4
+    Frequency: 120
+  Reliability: 2
+  SyncEveryNUpdates: 10
+  FullSyncEveryNSync: 4
+  SendData: 1
+  ApplyAsTransform: 0
+  AllowCollisionToAssumeOwner: 1
+  Rigidbody: {fileID: 2795575730073117764}
+--- !u!114 &5082451202743788756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2814398778851431825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 419518920, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 2bc855a8-91bd-4381-b9f9-3f80a24af5af
+  Reliability: 1
+  LocalMethodBehavior: 1
 --- !u!1 &2985779551527249586
 GameObject:
   m_ObjectHideFlags: 0
@@ -448,6 +565,7 @@ GameObject:
   - component: {fileID: 1542471517077846562}
   - component: {fileID: 2972091675463274605}
   - component: {fileID: 6990173934495491072}
+  - component: {fileID: 7146056392178138603}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -544,6 +662,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2959467708922500008, guid: 2a15d8680af39914ea5bf53328e7c260, type: 3}
+--- !u!114 &7146056392178138603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4059023389401895211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 419518920, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 923b21f6-5efb-41df-853c-74b3461e6ff3
+  Reliability: 1
+  LocalMethodBehavior: 1
 --- !u!1 &5049235903636912997
 GameObject:
   m_ObjectHideFlags: 0

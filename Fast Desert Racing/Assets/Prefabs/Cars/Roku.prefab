@@ -183,6 +183,10 @@ GameObject:
   - component: {fileID: -3962254830640810179}
   - component: {fileID: 4949233923890429821}
   - component: {fileID: 6939498527167069471}
+  - component: {fileID: 2063280667734058104}
+  - component: {fileID: -6617312990571743368}
+  - component: {fileID: 6859905323922816128}
+  - component: {fileID: 8659013956491998743}
   m_Layer: 0
   m_Name: Roku
   m_TagString: Untagged
@@ -219,6 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235ed6f68816b954c8cf5bcecf119cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 18186333-b5ad-41dc-89d3-35ea71267503
+  Reliability: 1
+  LocalMethodBehavior: 1
   wheelsCollider:
   - {fileID: 2605746299156941382}
   - {fileID: 270868938265676902}
@@ -281,6 +289,115 @@ MonoBehaviour:
   LeftWheel: {fileID: 3393788537038875176}
   RightWheel: {fileID: 4976311757775310257}
   AntiRoll: 5000
+--- !u!114 &2063280667734058104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356344585665278795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2141718255, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  IsPossessor: 0
+  IsPossessed: 0
+  OnPossessed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUnpossessed:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-6617312990571743368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356344585665278795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1312809854, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: dcd4506f-de8a-4025-907e-3cb2121a41dc
+  BucketBehaviors:
+  - Name: Min
+    NetLOD: 0
+    Frequency: -1
+  - Name: Low
+    NetLOD: 1
+    Frequency: 0
+  - Name: Mid
+    NetLOD: 2
+    Frequency: 0
+  - Name: High
+    NetLOD: 3
+    Frequency: 0
+  - Name: Max
+    NetLOD: 4
+    Frequency: 120
+  Reliability: 2
+  UseGlobalPosition: 0
+  OnlySyncFromRoomOwner: 0
+  refreshRate: 30
+  SyncedAxes: 511
+--- !u!114 &6859905323922816128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356344585665278795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1576325847, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: cb5b434c-8701-488e-bfa2-93bd18d426f6
+  BucketBehaviors:
+  - Name: Min
+    NetLOD: 0
+    Frequency: -1
+  - Name: Low
+    NetLOD: 1
+    Frequency: 10
+  - Name: Mid
+    NetLOD: 2
+    Frequency: 30
+  - Name: High
+    NetLOD: 3
+    Frequency: 50
+  - Name: Max
+    NetLOD: 4
+    Frequency: 120
+  Reliability: 2
+  SyncEveryNUpdates: 10
+  FullSyncEveryNSync: 4
+  SendData: 1
+  ApplyAsTransform: 0
+  AllowCollisionToAssumeOwner: 1
+  Rigidbody: {fileID: 4949233923890429821}
+--- !u!114 &8659013956491998743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356344585665278795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 419518920, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: a1d1dde4-fd8f-426a-a68f-28a672929255
+  Reliability: 1
+  LocalMethodBehavior: 1
 --- !u!1 &357796316497551990
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,6 +581,7 @@ GameObject:
   - component: {fileID: 7507506794374178304}
   - component: {fileID: 6289463228386922684}
   - component: {fileID: 9081707660550002399}
+  - component: {fileID: 5338053159425677037}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -560,6 +678,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2959467708922500008, guid: ebe9960604e89f143845a64c391842e9, type: 3}
+--- !u!114 &5338053159425677037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3526110804707648450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 419518920, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 1730f899-c9ca-4211-90f7-e33c02e8c664
+  Reliability: 1
+  LocalMethodBehavior: 1
 --- !u!1 &3737639540743301045
 GameObject:
   m_ObjectHideFlags: 0

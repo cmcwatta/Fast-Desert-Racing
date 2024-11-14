@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Alteruna;
+using System;
 
-public class Car : MonoBehaviour
+public class Car : AttributesSync
 {
     [Header("Wheels")]
     [SerializeField]
@@ -27,37 +29,53 @@ public class Car : MonoBehaviour
 
     [Header("Mod")]
     [SerializeField]
-    private Mesh[] bodies;
+    public Mesh[] bodies;
     private int _curBody;
     [SerializeField]
-    private MeshFilter meshFilter;
+    public MeshFilter meshFilter;
 
-    void Start()
+    [Header("Multiplayer")]
+    private Alteruna.Avatar _avatar;
+
+    void Awake()
     {
         rb.centerOfMass += Vector3.up * centreOfGravityOffset;
+
+        _avatar = GetComponent<Alteruna.Avatar>();
     }
 
     void Update()
     {
         if (!allowUse) return;
+        if (!_avatar.IsMe) return;
 
         float vInput = Input.GetAxis("Vertical");
         float hInput = Input.GetAxis("Horizontal");
 
         UpdateMovement(vInput, hInput);
-        UpdateWheels(vInput, hInput);
+
+        BroadcastRemoteMethod("ChangeStyle", _avatar.name, PlayerPrefs.GetInt("Variation"));
     }
 
-    void UpdateWheels(float vInput, float hInput)
+    [SynchronizableMethod]
+    public void ChangeStyle(string name, int variable)
     {
+        Car car = GameObject.Find(name)?.GetComponent<Car>();
+        if (car)
+        {
+            try
+            {
+                car.meshFilter.mesh = car.bodies[variable];
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
     }
 
     void UpdateMovement(float vInput, float hInput)
     {
-        //rb.AddForce(transform.forward * vInput * speed, ForceMode.Acceleration);
-
-        //transform.Rotate(0, ((hInput * (steeringSpeed * Time.deltaTime)) * rb.velocity.magnitude), 0);
-
         foreach (var wheel in wheelsCollider)
         {
             if (wheel.steerable)
@@ -83,6 +101,11 @@ public class Car : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, Mathf.Clamp(transform.rotation.eulerAngles.z, -0.5f, 0.5f));
+    }
+
+    public int GetVariation()
+    {
+        return _curBody;
     }
 
     public void SwitchBodies(bool right)
