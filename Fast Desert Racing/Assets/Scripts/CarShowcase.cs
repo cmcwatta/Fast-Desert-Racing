@@ -1,6 +1,9 @@
+using Alteruna;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -31,10 +34,19 @@ public class CarShowcase : MonoBehaviour
     private GameObject[] cars;
     private int _curCarIndex = 0;
 
+    private Multiplayer _multiplayer;
+
     // Start is called before the first frame update
     void Start()
     {
         SpawnCar();
+
+        _multiplayer = FindObjectOfType<Multiplayer>();
+        _multiplayer.OnConnected.AddListener((Multiplayer a, Endpoint _) => a.RefreshRoomList());
+        _multiplayer.OnRoomListUpdated.AddListener((Multiplayer call) =>
+        {
+            if (!call.AvailableRooms.Any(r => r.Name == "MainServer") || call.AvailableRooms.Count <= 0) _multiplayer.CreateRoom("MainServer", false, 0, false, false);
+        });
     }
 
     // Update is called once per frame
@@ -81,9 +93,8 @@ public class CarShowcase : MonoBehaviour
 
     public void StartPlaying()
     {
-        GameData.CarPrefab.transform.parent = null;
-
-        DontDestroyOnLoad(GameData.CarPrefab);
+        PlayerPrefs.SetString("Model", cars[_curCarIndex].name);
+        PlayerPrefs.SetInt("Variation", GameData.CarPrefab?.GetComponent<Car>().GetVariation() ?? 0);
 
         SceneManager.LoadScene("Racing");
     }

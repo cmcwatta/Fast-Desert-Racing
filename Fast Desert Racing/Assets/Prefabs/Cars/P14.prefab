@@ -216,6 +216,7 @@ GameObject:
   - component: {fileID: 7905407368608173240}
   - component: {fileID: 6699459304835790533}
   - component: {fileID: 5992602166177151418}
+  - component: {fileID: 7719405608420765275}
   m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
@@ -312,6 +313,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2959467708922500008, guid: cc23bd51184b00f4182801945a53d887, type: 3}
+--- !u!114 &7719405608420765275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1803485209136523491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 419518920, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: b9da0a56-39bd-46a4-8c99-1ab55b250a01
+  Reliability: 1
+  LocalMethodBehavior: 1
 --- !u!1 &1884898122323403447
 GameObject:
   m_ObjectHideFlags: 0
@@ -442,6 +459,10 @@ GameObject:
   - component: {fileID: 4107781332342542732}
   - component: {fileID: 992157046232803259}
   - component: {fileID: -3190628501123709839}
+  - component: {fileID: -4676847196303128471}
+  - component: {fileID: -2429069095884805651}
+  - component: {fileID: -3306971093206107321}
+  - component: {fileID: 9038269110637756305}
   m_Layer: 0
   m_Name: P14
   m_TagString: Untagged
@@ -478,6 +499,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235ed6f68816b954c8cf5bcecf119cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 13ced663-06a2-4eb0-b7dc-b1e3e9cd7097
+  Reliability: 1
+  LocalMethodBehavior: 1
   wheelsCollider:
   - {fileID: 6120163922083491623}
   - {fileID: 6961372632885845573}
@@ -539,6 +564,115 @@ MonoBehaviour:
   LeftWheel: {fileID: 3880425811389237752}
   RightWheel: {fileID: 8445235002746496385}
   AntiRoll: 5000
+--- !u!114 &-4676847196303128471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4310643855908473031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2141718255, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  IsPossessor: 0
+  IsPossessed: 0
+  OnPossessed:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUnpossessed:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &-2429069095884805651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4310643855908473031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1312809854, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: dd1b3ca3-1ab6-4049-a64d-ccee42b7a8b1
+  BucketBehaviors:
+  - Name: Min
+    NetLOD: 0
+    Frequency: -1
+  - Name: Low
+    NetLOD: 1
+    Frequency: 0
+  - Name: Mid
+    NetLOD: 2
+    Frequency: 0
+  - Name: High
+    NetLOD: 3
+    Frequency: 0
+  - Name: Max
+    NetLOD: 4
+    Frequency: 120
+  Reliability: 2
+  UseGlobalPosition: 0
+  OnlySyncFromRoomOwner: 0
+  refreshRate: 30
+  SyncedAxes: 511
+--- !u!114 &-3306971093206107321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4310643855908473031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1576325847, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 744df306-911c-4c97-9e29-f2e93f22b774
+  BucketBehaviors:
+  - Name: Min
+    NetLOD: 0
+    Frequency: -1
+  - Name: Low
+    NetLOD: 1
+    Frequency: 10
+  - Name: Mid
+    NetLOD: 2
+    Frequency: 30
+  - Name: High
+    NetLOD: 3
+    Frequency: 50
+  - Name: Max
+    NetLOD: 4
+    Frequency: 120
+  Reliability: 2
+  SyncEveryNUpdates: 10
+  FullSyncEveryNSync: 4
+  SendData: 1
+  ApplyAsTransform: 0
+  AllowCollisionToAssumeOwner: 1
+  Rigidbody: {fileID: 992157046232803259}
+--- !u!114 &9038269110637756305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4310643855908473031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 419518920, guid: 0ae8d181602a00248a82f64a684a1c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Multiplayer: {fileID: 0}
+  _uidString: 30cc40fe-ebfc-48ae-9795-c8267562e851
+  Reliability: 1
+  LocalMethodBehavior: 1
 --- !u!1 &4400048558319217815
 GameObject:
   m_ObjectHideFlags: 0
