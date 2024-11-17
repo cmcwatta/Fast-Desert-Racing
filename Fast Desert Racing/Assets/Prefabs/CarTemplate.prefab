@@ -389,25 +389,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 235ed6f68816b954c8cf5bcecf119cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheels:
-  - {fileID: 7280690561899771056}
-  - {fileID: 5155808632323184535}
-  - {fileID: 123391560074595077}
-  - {fileID: 3819608273546152537}
+  Multiplayer: {fileID: 0}
+  _uidString: 3f1d98cf-c6ca-4160-9b1c-9770f28adef0
+  Reliability: 1
+  LocalMethodBehavior: 1
   wheelsCollider:
   - {fileID: 8595231534728469647}
   - {fileID: 7003635282460101535}
   - {fileID: 5982668489662467013}
   - {fileID: 6555069899796749942}
-  wheelsSteering:
-  - {fileID: 7280690561899771056}
-  - {fileID: 5155808632323184535}
   steeringRange: 15
   steeringSpeed: 5
   speed: 5
   brake: 5
   rb: {fileID: 7266063380320527318}
   centreOfGravityOffset: -1
+  allowUse: 0
+  bodies: []
+  meshFilter: {fileID: 0}
 --- !u!54 &7266063380320527318
 Rigidbody:
   m_ObjectHideFlags: 0
