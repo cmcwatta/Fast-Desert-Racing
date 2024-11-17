@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Alteruna;
 using System;
+using Unity.VisualScripting;
 
 public class Car : AttributesSync
 {
@@ -17,7 +18,7 @@ public class Car : AttributesSync
     [Header("Properties")]
     [SerializeField]
     private float speed;
-    private float _curSpeed;
+    public float CurSpeed;
     [SerializeField]
     private float brake;
     [SerializeField]
@@ -34,6 +35,9 @@ public class Car : AttributesSync
     [SerializeField]
     public MeshFilter meshFilter;
 
+    [SerializeField]
+    public AudioSource hornAudio;
+
     [Header("Multiplayer")]
     private Alteruna.Avatar _avatar;
 
@@ -46,15 +50,39 @@ public class Car : AttributesSync
 
     void Update()
     {
+        CurSpeed = rb.velocity.magnitude;
+
         if (!allowUse) return;
         if (!_avatar.IsMe) return;
 
         float vInput = Input.GetAxis("Vertical");
         float hInput = Input.GetAxis("Horizontal");
 
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            BroadcastRemoteMethod("Horn", _avatar.name);
+        }
+
         UpdateMovement(vInput, hInput);
 
         BroadcastRemoteMethod("ChangeStyle", _avatar.name, PlayerPrefs.GetInt("Variation"));
+    }
+
+    [SynchronizableMethod]
+    public void Horn(string name)
+    {
+        Car car = GameObject.Find(name)?.GetComponent<Car>();
+        if (car)
+        {
+            try
+            {
+                car.hornAudio.Play();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
     }
 
     [SynchronizableMethod]
