@@ -401,12 +401,14 @@ MonoBehaviour:
   steeringRange: 15
   steeringSpeed: 5
   speed: 5
+  CurSpeed: 0
   brake: 5
   rb: {fileID: 7266063380320527318}
   centreOfGravityOffset: -1
   allowUse: 0
   bodies: []
   meshFilter: {fileID: 0}
+  hornAudio: {fileID: 0}
 --- !u!54 &7266063380320527318
 Rigidbody:
   m_ObjectHideFlags: 0
