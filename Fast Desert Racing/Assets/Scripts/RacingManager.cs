@@ -66,7 +66,7 @@ public class RacingManager : MonoBehaviour
 
         Alteruna.Avatar[] avatars = FindObjectsOfType<Alteruna.Avatar>();
 
-        foreach (Alteruna.Avatar avatar in avatars)
+        foreach (Alteruna.Avatar avatar in avatars.Where(x => x.GetComponent<AI_Car>() == null))
         {
             if (avatar.IsMe)
             {

@@ -127,8 +127,6 @@ public class Car : AttributesSync
                 wheel.WheelCollider.motorTorque = 0;
             }
         }
-
-        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, Mathf.Clamp(transform.rotation.eulerAngles.z, -0.5f, 0.5f));
     }
 
     public int GetVariation()
