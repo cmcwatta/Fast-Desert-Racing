@@ -24,6 +24,8 @@ public class RacingManager : MonoBehaviour
     private GameObject gamePanel;
     [SerializeField]
     private GameObject pausePanel;
+    [SerializeField]
+    private GameObject radioPanel;
 
     [SerializeField]
     private TMP_Text speedometerText;
@@ -73,6 +75,12 @@ public class RacingManager : MonoBehaviour
 
     private void JoinedRoom(Multiplayer multiplayer, Room room, User user)
     {
+        if (IsAlreadyJoined())
+        {
+            room.Leave();
+            return;
+        }
+
         Spawner spawner = GameObject.Find("Multiplayer").GetComponent<Spawner>();
         Car car = spawner.Spawn(PlayerPrefs.GetString("Model"), transform.position).GetComponent<Car>();
         car.GetComponent<Alteruna.Avatar>().Possessed(user);
@@ -101,8 +109,20 @@ public class RacingManager : MonoBehaviour
         {
             PauseMenu();
         }
+
+        if (_joined && Input.GetKeyDown(KeyCode.R))
+        {
+            radioPanel.SetActive(!radioPanel.activeSelf);
+        }
     }
 
+    private bool IsAlreadyJoined()
+    {
+        bool found = false;
+        Alteruna.Avatar[] avatars = FindObjectsOfType<Alteruna.Avatar>();
+        foreach (Alteruna.Avatar avatar in avatars.Where(x => x.GetComponent<AI_Car>() == null)) if (avatar.IsMe) found = true;
+        return found;
+    }
     public void PauseMenu()
     {
         pausePanel.SetActive(!pausePanel.activeSelf);
