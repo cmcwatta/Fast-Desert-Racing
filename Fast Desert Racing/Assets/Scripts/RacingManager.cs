@@ -1,12 +1,15 @@
 using Alteruna;
 using Alteruna.SyncedEvent;
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class RacingManager : MonoBehaviour
 {
@@ -17,6 +20,14 @@ public class RacingManager : MonoBehaviour
     private bool _joined = false;
     [SerializeField]
     private GameObject connectingPanel;
+    [SerializeField]
+    private GameObject gamePanel;
+    [SerializeField]
+    private GameObject pausePanel;
+
+    [SerializeField]
+    private TMP_Text speedometerText;
+    public static Action<float> OnSpeedUpdate;
 
     [SerializeField]
     private Transform[] spawnpoints;
@@ -52,6 +63,11 @@ public class RacingManager : MonoBehaviour
         });
 
         _multiplayer.OnRoomJoined.AddListener(JoinedRoom);
+
+        OnSpeedUpdate += delegate (float speed)
+        {
+            speedometerText.text = Math.Round(speed * 2).ToString("0") + " KM/S";
+        };
     }
 
 
@@ -67,6 +83,7 @@ public class RacingManager : MonoBehaviour
     private void Update()
     {
         connectingPanel.SetActive(!_joined);
+        gamePanel.SetActive(_joined);
 
         Alteruna.Avatar[] avatars = FindObjectsOfType<Alteruna.Avatar>();
 
@@ -79,5 +96,27 @@ public class RacingManager : MonoBehaviour
                 avatar.GetComponent<Car>().allowUse = true;
             }
         }
+
+        if (_joined && Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseMenu();
+        }
+    }
+
+    public void PauseMenu()
+    {
+        pausePanel.SetActive(!pausePanel.activeSelf);
+    }
+
+    public void BackMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }

@@ -71,6 +71,8 @@ public class Car : AttributesSync
         UpdateParticle();
 
         BroadcastRemoteMethod("ChangeStyle", _avatar.name, PlayerPrefs.GetInt("Variation"));
+
+        RacingManager.OnSpeedUpdate?.Invoke(rb.velocity.magnitude);
     }
 
     [SynchronizableMethod]
