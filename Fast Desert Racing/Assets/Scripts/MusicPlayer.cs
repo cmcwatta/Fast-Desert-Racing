@@ -39,7 +39,8 @@ public class MusicPlayer : MonoBehaviour
             audioGameObject.transform.parent = this.transform;
             AudioSource audioSource = audioGameObject.AddComponent<AudioSource>();
             audioSource.clip = song;
-            audioSource.volume = 0.35f;
+            audioSource.volume = 0.075f;
+            audioSource.playOnAwake = false;
             _audioSources.Add(new MusicObject
             {
                 Name = song.name,
