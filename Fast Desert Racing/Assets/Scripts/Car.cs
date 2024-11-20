@@ -9,7 +9,7 @@ public class Car : AttributesSync
 {
     [Header("Wheels")]
     [SerializeField]
-    private Wheel[] wheelsCollider;
+    public Wheel[] wheelsCollider;
     [SerializeField]
     private float steeringRange;
     [SerializeField]
@@ -38,6 +38,9 @@ public class Car : AttributesSync
     [SerializeField]
     public AudioSource hornAudio;
 
+    [SerializeField]
+    private GameObject particleParent;
+
     [Header("Multiplayer")]
     private Alteruna.Avatar _avatar;
 
@@ -64,6 +67,8 @@ public class Car : AttributesSync
         }
 
         UpdateMovement(vInput, hInput);
+
+        UpdateParticle();
 
         BroadcastRemoteMethod("ChangeStyle", _avatar.name, PlayerPrefs.GetInt("Variation"));
     }
@@ -126,6 +131,14 @@ public class Car : AttributesSync
 
                 wheel.WheelCollider.motorTorque = 0;
             }
+        }
+    }
+
+    private void UpdateParticle()
+    {
+        foreach (var particle in particleParent.GetComponentsInChildren<ParticleSystem>())
+        {
+            particle.startSize = Mathf.Clamp(rb.velocity.magnitude, 0, 2);
         }
     }
 

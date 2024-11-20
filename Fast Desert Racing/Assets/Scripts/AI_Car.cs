@@ -1,21 +1,52 @@
 using Alteruna;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.AI;
+using Avatar = Alteruna.Avatar;
+using Random = UnityEngine.Random;
+
+public enum AIState
+{
+    Patrol,
+    Follow
+}
 
 public class AI_Car : AttributesSync
 {
     private NavMeshAgent _agent;
-    
+
+    [SerializeField]
     [SynchronizableField]
     private int _index = 0;
+
+    [SynchronizableField]
+    private string _followName = "";
 
     private Transform[] _transforms;
 
     [SerializeField]
     private float distanceCheck;
+    [SerializeField]
+    private float followSpeed;
+    [SerializeField]
+    private float patrolSpeed;
+    [SerializeField]
+    private Transform[] wheels;
 
+    [SerializeField]
+    [SynchronizableField]
+    private AIState _curState;
+
+    [SerializeField]
+    public AudioSource hornAudio;
+
+
+    [SerializeField]
+    private AudioSource engineAudio;
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -30,17 +61,57 @@ public class AI_Car : AttributesSync
 
     void Update()
     {
-        if (CheckDistance())
+        if (Multiplayer.Me.IsHost)
         {
-            if (Multiplayer.Me.IsHost)
+            switch (_curState)
             {
-                _index = Random.Range(0, _transforms.Length);
-                Commit();
-
-                _agent?.SetDestination(_transforms[_index].position);
-                BroadcastMessage("AgentDone", Multiplayer.Me.Name);
+                case AIState.Patrol:
+                    _agent.speed = patrolSpeed;
+                    if (CheckDistance())
+                    {
+                        GoRandom();
+                    }
+                    break;
+                case AIState.Follow:
+                    _agent.speed = followSpeed;
+                    Avatar avatar = FindObjectsOfType<Alteruna.Avatar>().FirstOrDefault(x => x.name == _followName);
+                    if (avatar != null)
+                    {
+                        if (Vector3.Distance(avatar.transform.position, _agent.transform.position) < 100)
+                        {
+                            _agent?.SetDestination(avatar.transform.position);
+                        }
+                        else
+                        {
+                            _curState = AIState.Patrol;
+                            Commit();
+                        }
+                    }
+                    break;
+                default:
+                    _agent.SetDestination(_agent.transform.position);
+                    GoRandom();
+                    break;
             }
         }
+        WheelsUpdate();
+    }
+
+    void GoRandom()
+    {
+        _index = Random.Range(0, _transforms.Length);
+        Commit();
+        _agent?.SetDestination(_transforms[_index].position);
+    }
+
+    void WheelsUpdate()
+    {
+        foreach(Transform wheel in wheels)
+        {
+            wheel.transform.Rotate(new Vector3(_agent.velocity.magnitude, 0, 0));
+        }
+
+        engineAudio.pitch = Mathf.Clamp(_agent.velocity.magnitude, 0, 1.5f);
     }
 
     bool CheckDistance()
@@ -52,9 +123,35 @@ public class AI_Car : AttributesSync
         return false;
     }
 
-    [SynchronizableMethod]
-    public void AgentDone(string name)
+    void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(name);
+        if (Multiplayer.Me.IsHost)
+        {
+            Transform carHit = collision.collider.gameObject.transform.parent;
+            if (carHit.CompareTag("Player"))
+            {
+                BroadcastRemoteMethod("HornNPC", gameObject.GetInstanceID());
+                _followName = carHit.name;
+                _curState = AIState.Follow;
+                Commit();
+            }
+        }
+    }
+
+    [SynchronizableMethod]
+    public void HornNPC(int id)
+    {
+        GameObject car = GameObject.FindGameObjectsWithTag("NPC").FirstOrDefault(x => x.GetInstanceID() == id);
+        if (car)
+        {
+            try
+            {
+                hornAudio.Play();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
     }
 }

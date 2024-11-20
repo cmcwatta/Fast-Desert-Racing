@@ -18,6 +18,9 @@ public class RacingManager : MonoBehaviour
     [SerializeField]
     private GameObject connectingPanel;
 
+    [SerializeField]
+    private Transform[] spawnpoints;
+
     private void Awake()
     {
         _multiplayer = FindObjectOfType<Multiplayer>();
@@ -57,6 +60,7 @@ public class RacingManager : MonoBehaviour
         Spawner spawner = GameObject.Find("Multiplayer").GetComponent<Spawner>();
         Car car = spawner.Spawn(PlayerPrefs.GetString("Model"), transform.position).GetComponent<Car>();
         car.GetComponent<Alteruna.Avatar>().Possessed(user);
+        car.transform.position = spawnpoints[Random.Range(0, spawnpoints.Length)].position;
         _joined = true;
     }
 

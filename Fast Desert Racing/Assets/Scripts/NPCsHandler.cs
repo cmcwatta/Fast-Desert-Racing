@@ -17,12 +17,6 @@ public class NPCsHandler : AttributesSync
     [SerializeField]
     private float maxNpcs;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         _curDelay += Time.deltaTime;
@@ -37,7 +31,6 @@ public class NPCsHandler : AttributesSync
     void SpawnCar()
     {
         Spawner spawner = GameObject.Find("Multiplayer").GetComponent<Spawner>();
-        Debug.Log(npcs[Random.Range(0, npcs.Length)].name);
         GameObject npc = spawner.Spawn(npcs[Random.Range(0, npcs.Length)].name, transform.position);
         npc.GetComponent<Avatar>().Possessed(Multiplayer.Instance.Me);
     }
