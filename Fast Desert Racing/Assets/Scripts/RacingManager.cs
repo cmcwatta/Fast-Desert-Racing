@@ -105,6 +105,7 @@ public class RacingManager : MonoBehaviour
         {
             if (avatar.IsMe)
             {
+                MoveCameraFreeMouse();
                 if (Input.GetMouseButton(0))
                 {
                     vCam.Priority = 5;
@@ -142,9 +143,7 @@ public class RacingManager : MonoBehaviour
     private void MoveCameraFreeMouse()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        Vector3 currentRotation = cameraCenter.transform.localEulerAngles;
-        float newYRotation = currentRotation.y + mouseX;
-        cameraCenter.transform.localRotation = Quaternion.Euler(0f, newYRotation, 0f);
+        cameraCenter.transform.rotation = Quaternion.Euler(0f, cameraCenter.transform.eulerAngles.y + mouseX, 0f);
     }
 
 
