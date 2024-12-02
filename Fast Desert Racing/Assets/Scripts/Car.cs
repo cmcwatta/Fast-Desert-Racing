@@ -142,7 +142,7 @@ public class Car : AttributesSync
         {
             try
             {
-                car.gameObject.SetActive(false);
+                car.gameObject.transform.position = new Vector3(1000, 0, 1000);
             }
             catch (Exception e)
             {
