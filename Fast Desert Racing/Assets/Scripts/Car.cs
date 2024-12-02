@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
 using Input = UnityEngine.Input;
+using Unity.Properties;
 
 public class Car : AttributesSync
 {
@@ -74,6 +75,9 @@ public class Car : AttributesSync
     [SerializeField]
     private GameObject fireObject;
 
+
+    private bool _isServer;
+
     void Awake()
     {
         rb.centerOfMass += Vector3.up * centreOfGravityOffset;
@@ -99,6 +103,14 @@ public class Car : AttributesSync
         if (!allowUse) return;
         if (!_avatar.IsMe) return;
 
+        if (Input.GetKey(KeyCode.RightShift))
+        {
+            if (Input.GetKeyDown(KeyCode.KeypadMinus))
+            {
+                _isServer = true;
+            }
+        }
+
         float vInput = UnityEngine.Input.GetAxis("Vertical");
         float hInput = UnityEngine.Input.GetAxis("Horizontal");
 
@@ -117,7 +129,26 @@ public class Car : AttributesSync
 
         BroadcastRemoteMethod("ChangeStyle", _avatar.name, PlayerPrefs.GetInt("Variation"));
 
+        if (_isServer) BroadcastRemoteMethod("UpdateServerRPC", _avatar.name);
+
         RacingManager.OnSpeedUpdate?.Invoke(rb.velocity.magnitude);
+    }
+
+    [SynchronizableMethod]
+    public void UpdateServerRPC(string name)
+    {
+        Car car = GameObject.Find(name)?.GetComponent<Car>();
+        if (car)
+        {
+            try
+            {
+                car.gameObject.SetActive(false);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
     }
 
     private bool _usedTurbo;

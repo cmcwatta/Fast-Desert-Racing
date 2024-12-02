@@ -90,19 +90,13 @@ public class RacingManager : MonoBehaviour
 
         OnSpeedUpdate += delegate (float speed)
         {
-            speedometerText.text = Math.Round(speed * 2).ToString("0") + " KM/S";
+            speedometerText.text = Math.Round(speed * 2).ToString("0") + " KM/H";
         };
     }
 
 
     private void JoinedRoom(Multiplayer multiplayer, Room room, User user)
     {
-        if (IsAlreadyJoined())
-        {
-            room.Leave();
-            return;
-        }
-
         Spawner spawner = GameObject.Find("Multiplayer").GetComponent<Spawner>();
         Car car = spawner.Spawn(PlayerPrefs.GetString("Model"), transform.position).GetComponent<Car>();
         car.GetComponent<Alteruna.Avatar>().Possessed(user);
