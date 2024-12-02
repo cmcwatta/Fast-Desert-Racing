@@ -15,6 +15,12 @@ public class RacingManager : MonoBehaviour
 {
     [SerializeField]
     private CinemachineVirtualCamera vCam;
+    [SerializeField]
+    private CinemachineVirtualCamera vFreeCam;
+    [SerializeField]
+    private GameObject cameraCenter;
+    [SerializeField]
+    private float mouseSensitivity = 100f;
 
     private Multiplayer _multiplayer;
     private bool _joined = false;
@@ -99,8 +105,26 @@ public class RacingManager : MonoBehaviour
         {
             if (avatar.IsMe)
             {
-                vCam.LookAt = avatar.transform;
-                vCam.Follow = avatar.transform;
+                MoveCameraFreeMouse();
+                if (Input.GetMouseButton(0))
+                {
+                    vCam.Priority = 5;
+                    vFreeCam.Priority = 10;
+                    vFreeCam.LookAt = null;
+                    MoveCameraFreeMouse();
+                }
+                else
+                {
+                    vCam.LookAt = avatar.transform;
+                    vCam.Follow = avatar.transform;
+                    vFreeCam.LookAt = avatar.transform;
+                    vCam.Priority = 10;
+                    vFreeCam.Priority = 5;
+                    vFreeCam.transform.position = vCam.transform.position;
+                    vFreeCam.transform.rotation = vCam.transform.rotation;
+                }
+
+                cameraCenter.transform.position = avatar.transform.position;
                 avatar.GetComponent<Car>().allowUse = true;
             }
         }
@@ -115,6 +139,13 @@ public class RacingManager : MonoBehaviour
             radioPanel.SetActive(!radioPanel.activeSelf);
         }
     }
+
+    private void MoveCameraFreeMouse()
+    {
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+        cameraCenter.transform.rotation = Quaternion.Euler(0f, cameraCenter.transform.eulerAngles.y + mouseX, 0f);
+    }
+
 
     private bool IsAlreadyJoined()
     {
