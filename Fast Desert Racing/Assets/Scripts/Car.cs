@@ -4,6 +4,8 @@ using UnityEngine;
 using Alteruna;
 using System;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
+using UnityEngine.Windows;
 
 public class Car : AttributesSync
 {
@@ -63,6 +65,8 @@ public class Car : AttributesSync
     private GameObject smokeObject;
     [SerializeField]
     private GameObject fireObject;
+    [SerializeField]
+    private GameObject explosionObject;
 
     void Awake()
     {
@@ -71,6 +75,8 @@ public class Car : AttributesSync
         _originalArrRot = arrowMap.transform.rotation;
 
         _avatar = GetComponent<Alteruna.Avatar>();
+
+        _curHealth = maxHealth;
     }
 
     void Update()
@@ -80,15 +86,17 @@ public class Car : AttributesSync
         arrowMap.gameObject.SetActive(true);
         arrowMap.gameObject.transform.rotation = Quaternion.Euler(_originalArrRot.eulerAngles.x, transform.rotation.eulerAngles.y - 180, _originalArrRot.eulerAngles.z);
 
+        UpdateHealth();
+
         if (!allowUse) return;
         if (!_avatar.IsMe) return;
 
-        float vInput = Input.GetAxis("Vertical");
-        float hInput = Input.GetAxis("Horizontal");
+        float vInput = UnityEngine.Input.GetAxis("Vertical");
+        float hInput = UnityEngine.Input.GetAxis("Horizontal");
 
         arrowMap.sprite = arrowMapMe;
 
-        if (Input.GetKeyDown(KeyCode.H))
+        if (UnityEngine.Input.GetKeyDown(KeyCode.H))
         {
             BroadcastRemoteMethod("Horn", _avatar.name);
         }
@@ -140,21 +148,24 @@ public class Car : AttributesSync
     {
         foreach (var wheel in wheelsCollider)
         {
-            if (wheel.steerable)
+            if (!_alreadyTriggeredDead)
             {
-                wheel.WheelCollider.steerAngle = hInput * steeringRange;
-            }
-
-            if (vInput != 0)
-            {
-                if (wheel.motorized)
+                if (wheel.steerable)
                 {
-                    wheel.WheelCollider.motorTorque = vInput * speed * 100;
+                    wheel.WheelCollider.steerAngle = hInput * steeringRange;
                 }
-                wheel.WheelCollider.brakeTorque = 0;
+
+                if (vInput != 0)
+                {
+                    if (wheel.motorized)
+                    {
+                        wheel.WheelCollider.motorTorque = vInput * speed * 100;
+                    }
+                    wheel.WheelCollider.brakeTorque = 0;
+                }
             }
 
-            if (Input.GetKey(KeyCode.Space))
+            if (UnityEngine.Input.GetKey(KeyCode.Space) || _alreadyTriggeredDead)
             {
                 wheel.WheelCollider.brakeTorque = brake * 50;
 
@@ -197,6 +208,68 @@ public class Car : AttributesSync
         if (bumpColide)
         {
             bumpSound.Play();
+            if (_avatar.IsMe)
+            {
+                BroadcastRemoteMethod("SetHealthCar", _avatar.name, _curHealth - CurSpeed);
+            }
         }
+    }
+
+
+
+    [SynchronizableMethod]
+    public void SetHealthCar(string name, float health)
+    {
+        Car car = GameObject.Find(name)?.GetComponent<Car>();
+        if (car)
+        {
+            try
+            {
+                car._curHealth = health;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
+    }
+
+    private bool _alreadyTriggeredDead;
+    private void UpdateHealth()
+    {
+        if (_curHealth <= 0)
+        {
+            fireObject.SetActive(true);
+            allowUse = false;
+            if (_avatar.IsMe) UpdateMovement(0, 0);
+            if (!_alreadyTriggeredDead)
+            {
+                StartCoroutine(StartDead());
+                _alreadyTriggeredDead = true;
+            }
+        }
+        else if(_curHealth <= (maxHealth / 2))
+        {
+            smokeObject.SetActive(true);
+        }
+        else
+        {
+            smokeObject.SetActive(false);
+            fireObject.SetActive(false);
+        }
+    }
+
+    private IEnumerator StartDead()
+    {
+        yield return new WaitForSeconds(5f);
+        Spawner spawner = GameObject.Find("Multiplayer").GetComponent<Spawner>();
+        GameObject explosion = spawner.Spawn("Explosion", transform.position);
+        yield return new WaitForSeconds(3f);
+        spawner.Despawn(explosion);
+        if (_avatar.IsMe)
+        {
+            SceneManager.LoadScene(0);
+        }
+        yield return null;
     }
 }

@@ -33,6 +33,8 @@ public class RacingManager : MonoBehaviour
     [SerializeField]
     private GameObject radioPanel;
     [SerializeField]
+    private GameObject settingPanel;
+    [SerializeField]
     private GameObject cameraMap;
 
     [SerializeField]
@@ -173,6 +175,11 @@ public class RacingManager : MonoBehaviour
     public void PauseMenu()
     {
         pausePanel.SetActive(!pausePanel.activeSelf);
+    }
+
+    public void OpenSettings()
+    {
+        settingPanel.SetActive(!settingPanel.activeSelf);
     }
 
     public void BackMainMenu()
