@@ -41,12 +41,34 @@ public class Car : AttributesSync
     [SerializeField]
     private GameObject particleParent;
 
+    [SerializeField]
+    private AudioSource bumpSound;
+
+    [SerializeField]
+    private SpriteRenderer arrowMap;
+
+    [SerializeField]
+    private Sprite arrowMapMe;
+    private Quaternion _originalArrRot;
+
     [Header("Multiplayer")]
     private Alteruna.Avatar _avatar;
+
+    [Header("Health")]
+    [SerializeField]
+    private float maxHealth;
+    [SerializeField]
+    private float _curHealth;
+    [SerializeField]
+    private GameObject smokeObject;
+    [SerializeField]
+    private GameObject fireObject;
 
     void Awake()
     {
         rb.centerOfMass += Vector3.up * centreOfGravityOffset;
+
+        _originalArrRot = arrowMap.transform.rotation;
 
         _avatar = GetComponent<Alteruna.Avatar>();
     }
@@ -55,11 +77,16 @@ public class Car : AttributesSync
     {
         CurSpeed = rb.velocity.magnitude;
 
+        arrowMap.gameObject.SetActive(true);
+        arrowMap.gameObject.transform.rotation = Quaternion.Euler(_originalArrRot.eulerAngles.x, transform.rotation.eulerAngles.y - 180, _originalArrRot.eulerAngles.z);
+
         if (!allowUse) return;
         if (!_avatar.IsMe) return;
 
         float vInput = Input.GetAxis("Vertical");
         float hInput = Input.GetAxis("Horizontal");
+
+        arrowMap.sprite = arrowMapMe;
 
         if (Input.GetKeyDown(KeyCode.H))
         {
@@ -157,4 +184,19 @@ public class Car : AttributesSync
         meshFilter.mesh = bodies[_curBody];
     }
 
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        bool bumpColide = false;
+
+        foreach (var collider in collision.contacts)
+        {
+            if (collider.thisCollider.CompareTag("Bump")) bumpColide = true;
+        }
+
+        if (bumpColide)
+        {
+            bumpSound.Play();
+        }
+    }
 }

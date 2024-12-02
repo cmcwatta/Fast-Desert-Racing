@@ -32,6 +32,8 @@ public class RacingManager : MonoBehaviour
     private GameObject pausePanel;
     [SerializeField]
     private GameObject radioPanel;
+    [SerializeField]
+    private GameObject cameraMap;
 
     [SerializeField]
     private TMP_Text speedometerText;
@@ -70,6 +72,18 @@ public class RacingManager : MonoBehaviour
             if (!_joined) a.RefreshRoomList();
         });
 
+        _multiplayer.OnOtherUserLeft.AddListener((Multiplayer _, User a) =>
+        {
+            foreach (Alteruna.Avatar avatar in FindObjectsOfType<Alteruna.Avatar>().Where(x => x.GetComponent<Car>() != null))
+            {
+                if (avatar.Possessor == a)
+                {
+                    Spawner spawner = GameObject.Find("Multiplayer").GetComponent<Spawner>();
+                    spawner.Despawn(avatar.gameObject);
+                }
+            }
+        });
+
         _multiplayer.OnRoomJoined.AddListener(JoinedRoom);
 
         OnSpeedUpdate += delegate (float speed)
@@ -101,7 +115,7 @@ public class RacingManager : MonoBehaviour
 
         Alteruna.Avatar[] avatars = FindObjectsOfType<Alteruna.Avatar>();
 
-        foreach (Alteruna.Avatar avatar in avatars.Where(x => x.GetComponent<AI_Car>() == null))
+        foreach (Alteruna.Avatar avatar in avatars.Where(x => x.GetComponent<Car>() != null))
         {
             if (avatar.IsMe)
             {
@@ -125,6 +139,8 @@ public class RacingManager : MonoBehaviour
                 }
 
                 cameraCenter.transform.position = avatar.transform.position;
+                cameraMap.transform.position = new Vector3(avatar.transform.position.x, cameraMap.transform.position.y, avatar.transform.position.z);
+                cameraMap.transform.rotation = Quaternion.Euler(90, avatar.transform.eulerAngles.y, 0);
                 avatar.GetComponent<Car>().allowUse = true;
             }
         }

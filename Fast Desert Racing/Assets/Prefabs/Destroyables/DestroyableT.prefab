@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2805983794226119936}
   m_Layer: 0
   m_Name: DestroyableT
-  m_TagString: Untagged
+  m_TagString: Destroyable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -42,7 +42,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8920344383551001350}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 1000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: 4b458cc0-d326-4c6f-9d5a-a2eb90877493
+  _uidString: 77e7dbd5-4889-4e68-a9a9-1c8d6926f6bc
   BucketBehaviors:
   - Name: Min
     NetLOD: 0
