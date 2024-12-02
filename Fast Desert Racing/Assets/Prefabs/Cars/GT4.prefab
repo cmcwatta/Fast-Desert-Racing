@@ -9850,7 +9850,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: e35e5901-fc0b-4c68-ab66-178bbea3affa
+  _uidString: 868e2ef4-730b-4f4b-aa17-fd3fa8e9a3f0
   Reliability: 1
   LocalMethodBehavior: 1
   wheelsCollider:
@@ -9861,6 +9861,8 @@ MonoBehaviour:
   steeringRange: 15
   steeringSpeed: 5
   speed: 5
+  turboSpeed: 8
+  turboObject: {fileID: 3950438806613049822}
   CurSpeed: 0
   brake: 5
   rb: {fileID: 1259691701052964052}
@@ -9881,7 +9883,6 @@ MonoBehaviour:
   _curHealth: 0
   smokeObject: {fileID: 8170575938847992602}
   fireObject: {fileID: 854093834098274075}
-  explosionObject: {fileID: 0}
 --- !u!54 &1259691701052964052
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9958,7 +9959,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: 3682ef9b-61d1-474c-9c7f-f2dcc6783fb0
+  _uidString: 4d9c9d15-50d8-46c1-9d22-4ebfaaaf7ea6
   BucketBehaviors:
   - Name: Min
     NetLOD: 0
@@ -9993,7 +9994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: 09e7dfda-339c-469a-8ccf-52c78d4b9eff
+  _uidString: a8f52511-4fea-4ce7-8afd-548ab0aa345a
   BucketBehaviors:
   - Name: Min
     NetLOD: 0
@@ -10030,7 +10031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: f5b7c6ff-7f60-47b6-a106-1dca5717fc55
+  _uidString: 25576c14-01cc-409e-8414-a6788cca07ab
   Reliability: 1
   LocalMethodBehavior: 1
 --- !u!1 &6015637568207480828
@@ -10525,6 +10526,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1758021872010553505, guid: 01a1c788dd7e4bc48b39c976c878354b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.372
+      objectReference: {fileID: 0}
     - target: {fileID: 2231332757660300969, guid: 01a1c788dd7e4bc48b39c976c878354b, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.954
@@ -10541,6 +10546,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 1.3929996
       objectReference: {fileID: 0}
+    - target: {fileID: 8312987187358601718, guid: 01a1c788dd7e4bc48b39c976c878354b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.372
+      objectReference: {fileID: 0}
     - target: {fileID: 8364919923245119744, guid: 01a1c788dd7e4bc48b39c976c878354b, type: 3}
       propertyPath: m_Name
       value: Engine
@@ -10553,6 +10562,11 @@ PrefabInstance:
 --- !u!1 &854093834098274075 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3945461431801240246, guid: 01a1c788dd7e4bc48b39c976c878354b, type: 3}
+  m_PrefabInstance: {fileID: 4403185171302659501}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3950438806613049822 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 849358161794430067, guid: 01a1c788dd7e4bc48b39c976c878354b, type: 3}
   m_PrefabInstance: {fileID: 4403185171302659501}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &4185804481681763519 stripped
@@ -10587,7 +10601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6126189903655158142, guid: c0e0911fe3b084c4c92ac1bb3f8d0623, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6126189903655158142, guid: c0e0911fe3b084c4c92ac1bb3f8d0623, type: 3}
       propertyPath: m_LocalPosition.z

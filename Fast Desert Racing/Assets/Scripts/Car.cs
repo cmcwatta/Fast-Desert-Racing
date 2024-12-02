@@ -6,6 +6,7 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 using UnityEngine.Windows;
+using Input = UnityEngine.Input;
 
 public class Car : AttributesSync
 {
@@ -20,6 +21,13 @@ public class Car : AttributesSync
     [Header("Properties")]
     [SerializeField]
     private float speed;
+    [SerializeField]
+    private float turboSpeed;
+    [SerializeField]
+    private GameObject turboObject;
+    private bool _turboEnabled;
+    private float _turboUsage;
+
     public float CurSpeed;
     [SerializeField]
     private float brake;
@@ -65,8 +73,6 @@ public class Car : AttributesSync
     private GameObject smokeObject;
     [SerializeField]
     private GameObject fireObject;
-    [SerializeField]
-    private GameObject explosionObject;
 
     void Awake()
     {
@@ -77,6 +83,8 @@ public class Car : AttributesSync
         _avatar = GetComponent<Alteruna.Avatar>();
 
         _curHealth = maxHealth;
+
+        _turboUsage = 100;
     }
 
     void Update()
@@ -100,6 +108,8 @@ public class Car : AttributesSync
         {
             BroadcastRemoteMethod("Horn", _avatar.name);
         }
+        
+        UpdateTurbo();
 
         UpdateMovement(vInput, hInput);
 
@@ -108,6 +118,49 @@ public class Car : AttributesSync
         BroadcastRemoteMethod("ChangeStyle", _avatar.name, PlayerPrefs.GetInt("Variation"));
 
         RacingManager.OnSpeedUpdate?.Invoke(rb.velocity.magnitude);
+    }
+
+    private bool _usedTurbo;
+    private void UpdateTurbo()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (_turboUsage > 0 && _usedTurbo == false)
+            {
+                _turboEnabled = true;
+                _turboUsage = Math.Clamp(_turboUsage - 0.5f, 0, 100f);
+                BroadcastRemoteMethod("Nitro", _avatar.name, true);
+            }
+            else
+            {
+                _turboEnabled = false;
+                BroadcastRemoteMethod("Nitro", _avatar.name, false);
+            }
+        }
+        else
+        {
+            _turboEnabled = false;
+            _turboUsage = Math.Clamp(_turboUsage + 0.1f, 0, 100f);
+            _usedTurbo = _turboUsage < 100;
+            BroadcastRemoteMethod("Nitro", _avatar.name, false);
+        }
+    }
+
+    [SynchronizableMethod]
+    public void Nitro(string name, bool activate)
+    {
+        Car car = GameObject.Find(name)?.GetComponent<Car>();
+        if (car)
+        {
+            try
+            {
+                car.turboObject.SetActive(activate);
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
     }
 
     [SynchronizableMethod]
@@ -157,9 +210,10 @@ public class Car : AttributesSync
 
                 if (vInput != 0)
                 {
+                    float speedCalc = _turboEnabled ? turboSpeed : speed;
                     if (wheel.motorized)
                     {
-                        wheel.WheelCollider.motorTorque = vInput * speed * 100;
+                        wheel.WheelCollider.motorTorque = vInput * speedCalc * 100;
                     }
                     wheel.WheelCollider.brakeTorque = 0;
                 }
