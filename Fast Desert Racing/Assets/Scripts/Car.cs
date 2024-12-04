@@ -191,6 +191,8 @@ public class Car : AttributesSync
     private bool _usedTurbo;
     private void UpdateTurbo()
     {
+        RacingManager.OnNitroUpdate?.Invoke(Math.Clamp(_turboUsage, 0, 100f));
+
         if (Input.GetKey(KeyCode.LeftShift))
         {
             if (_turboUsage > 0 && _usedTurbo == false)

@@ -9,6 +9,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class RacingManager : MonoBehaviour
@@ -40,6 +41,9 @@ public class RacingManager : MonoBehaviour
     [SerializeField]
     private TMP_Text speedometerText;
     public static Action<float> OnSpeedUpdate;
+    [SerializeField]
+    private Slider nitroSlider;
+    public static Action<float> OnNitroUpdate;
 
     [SerializeField]
     private Transform[] spawnpoints;
@@ -92,6 +96,10 @@ public class RacingManager : MonoBehaviour
         {
             speedometerText.text = Math.Round(speed * 2).ToString("0") + " KM/H";
         };
+        OnNitroUpdate += delegate (float percentage)
+        {
+            nitroSlider.value = percentage;
+        };
     }
 
 
@@ -109,6 +117,11 @@ public class RacingManager : MonoBehaviour
         connectingPanel.SetActive(!_joined);
         gamePanel.SetActive(_joined);
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OpenSettings();
+        }
+
         Alteruna.Avatar[] avatars = FindObjectsOfType<Alteruna.Avatar>();
 
         foreach (Alteruna.Avatar avatar in avatars.Where(x => x.GetComponent<Car>() != null))
@@ -116,7 +129,7 @@ public class RacingManager : MonoBehaviour
             if (avatar.IsMe)
             {
                 MoveCameraFreeMouse();
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButton(1))
                 {
                     vCam.Priority = 5;
                     vFreeCam.Priority = 10;
@@ -157,8 +170,6 @@ public class RacingManager : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         cameraCenter.transform.rotation = Quaternion.Euler(0f, cameraCenter.transform.eulerAngles.y + mouseX, 0f);
     }
-
-
     private bool IsAlreadyJoined()
     {
         bool found = false;
@@ -180,6 +191,11 @@ public class RacingManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+    public void RestartLevel()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     public void ExitGame()
     {
         Application.Quit();

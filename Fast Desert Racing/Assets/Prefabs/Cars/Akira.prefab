@@ -5437,8 +5437,8 @@ MonoBehaviour:
   - {fileID: 15396334799774443}
   steeringRange: 15
   steeringSpeed: 5
-  speed: 5
-  turboSpeed: 8
+  speed: 6
+  turboSpeed: 12
   turboObject: {fileID: 7812123927485021843}
   CurSpeed: 0
   brake: 5
@@ -5458,7 +5458,7 @@ MonoBehaviour:
   bumpSound: {fileID: 3663789326816384293}
   arrowMap: {fileID: 5356864714786996275}
   arrowMapMe: {fileID: 21300000, guid: bf5c96abfbfa81f478242ac488733650, type: 3}
-  maxHealth: 20
+  maxHealth: 100
   _curHealth: 0
   smokeObject: {fileID: 3160205319085708375}
   fireObject: {fileID: 5864429613085839446}

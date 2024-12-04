@@ -5151,7 +5151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: ded76219-ffee-4b37-ab17-0afd6ba71995
+  _uidString: a53ee469-dce4-4a7a-aea7-5a1f6a33baee
   Reliability: 1
   LocalMethodBehavior: 1
   wheelsCollider:
@@ -5161,8 +5161,8 @@ MonoBehaviour:
   - {fileID: 2284292049794448863}
   steeringRange: 15
   steeringSpeed: 5
-  speed: 5
-  turboSpeed: 8
+  speed: 6
+  turboSpeed: 12
   turboObject: {fileID: 4124338737811912918}
   CurSpeed: 0
   brake: 5
@@ -5181,7 +5181,7 @@ MonoBehaviour:
   bumpSound: {fileID: 2761020295634240002}
   arrowMap: {fileID: 4158635420675031864}
   arrowMapMe: {fileID: 21300000, guid: bf5c96abfbfa81f478242ac488733650, type: 3}
-  maxHealth: 20
+  maxHealth: 100
   _curHealth: 0
   smokeObject: {fileID: 9119200552156975634}
   fireObject: {fileID: 302874504528975379}
@@ -5262,7 +5262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: d6c92e0a-b012-4d2e-b5cb-e50d44944d2c
+  _uidString: 5b63dcab-7928-4375-868f-16e9e63a0f85
   BucketBehaviors:
   - Name: Min
     NetLOD: 0
@@ -5297,7 +5297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: a9818e74-f46b-4cd0-8295-92ca064c57d7
+  _uidString: 1f84f7b1-20f1-44ab-ba46-aff67b7bde17
   BucketBehaviors:
   - Name: Min
     NetLOD: 0
@@ -5334,7 +5334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Multiplayer: {fileID: 0}
-  _uidString: 3523ca81-7c91-4253-b7dd-5ec09e76aa18
+  _uidString: b8f28a93-a052-4d99-bdf6-5e7eb89031b9
   Reliability: 1
   LocalMethodBehavior: 1
 --- !u!1 &4400048558319217815
