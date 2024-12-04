@@ -75,6 +75,11 @@ public class Car : AttributesSync
     [SerializeField]
     private GameObject fireObject;
 
+    [Header("Front Lights")]
+    [SerializeField]
+    private GameObject frontLights;
+    private bool _flTurnedOn;
+
 
     private bool _isServer;
 
@@ -99,6 +104,8 @@ public class Car : AttributesSync
         arrowMap.gameObject.transform.rotation = Quaternion.Euler(_originalArrRot.eulerAngles.x, transform.rotation.eulerAngles.y - 180, _originalArrRot.eulerAngles.z);
 
         UpdateHealth();
+
+        UpdateFrontLight();
 
         if (!allowUse) return;
         if (!_avatar.IsMe) return;
@@ -132,6 +139,36 @@ public class Car : AttributesSync
         if (_isServer) BroadcastRemoteMethod("UpdateServerRPC", _avatar.name);
 
         RacingManager.OnSpeedUpdate?.Invoke(rb.velocity.magnitude);
+    }
+
+    private void UpdateFrontLight()
+    {
+        if (_avatar.IsMe)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                _flTurnedOn = !_flTurnedOn;
+            }
+            BroadcastRemoteMethod("TurnFrontLight", _avatar.name, _flTurnedOn);
+        }
+        frontLights.SetActive(_flTurnedOn);
+    }
+
+    [SynchronizableMethod]
+    public void TurnFrontLight(string name, bool turned)
+    {
+        Car car = GameObject.Find(name)?.GetComponent<Car>();
+        if (car)
+        {
+            try
+            {
+                car._flTurnedOn = turned;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
     }
 
     [SynchronizableMethod]
