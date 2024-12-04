@@ -2,43 +2,46 @@ using Alteruna;
 using Alteruna.Trinity;
 using UnityEngine;
 
-public class ExampleRpcSerializable : CommunicationBridge, ISerializable
+namespace Alteruna_Examples
 {
-	// Name of our RPC event.
-	public const string RPC_NAME = "ExampleRpc2";
-
-	private void Start()
+	public class ExampleRpcSerializable : CommunicationBridge, ISerializable
 	{
-		// Register our remote procedure.
-		Multiplayer.RegisterRemoteProcedure(RPC_NAME, RpcMethod);
-	}
+		// Name of our RPC event.
+		public const string RPC_NAME = "ExampleRpc2";
 
-	// Call our rpc.
-	public void SendRpc()
-	{
-		// Send our RPC event.
-		Multiplayer.InvokeRemoteProcedure(RPC_NAME, UserId.All, null, this);
-	}
+		private void Start()
+		{
+			// Register our remote procedure.
+			Multiplayer.RegisterRemoteProcedure(RPC_NAME, RpcMethod);
+		}
 
-	// Receive RPC event.
-	private void RpcMethod(ushort fromUser, ProcedureParameters parameters, uint callId, ITransportStreamReader processor)
-	{
-		Unserialize(processor);
-		// Log our message.
-		Debug.Log(parameters.Get("msg", ""));
-	}
+		// Call our rpc.
+		public void SendRpc()
+		{
+			// Send our RPC event.
+			Multiplayer.InvokeRemoteProcedure(RPC_NAME, UserId.All, null, this);
+		}
 
-	// Write data to the transport stream.
-	public void Serialize(ITransportStreamWriter processor)
-	{
-		Writer writer = new Writer(processor);
-		writer.Write("Hello, world!");
-	}
+		// Receive RPC event.
+		private void RpcMethod(ushort fromUser, ProcedureParameters parameters, uint callId, ITransportStreamReader processor)
+		{
+			Unserialize(processor);
+			// Log our message.
+			Debug.Log(parameters.Get("msg", ""));
+		}
 
-	// Read data from the transport stream.
-	public void Unserialize(ITransportStreamReader processor)
-	{
-		Reader reader = new Reader(processor);
-		Debug.Log(reader.ReadString());
+		// Write data to the transport stream.
+		public void Serialize(ITransportStreamWriter processor)
+		{
+			Writer writer = new Writer(processor);
+			writer.Write("Hello, world!");
+		}
+
+		// Read data from the transport stream.
+		public void Unserialize(ITransportStreamReader processor)
+		{
+			Reader reader = new Reader(processor);
+			Debug.Log(reader.ReadString());
+		}
 	}
 }
