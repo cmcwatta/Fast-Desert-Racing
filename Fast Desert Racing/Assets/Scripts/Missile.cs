@@ -80,7 +80,10 @@ public class Missile : MonoBehaviour
                     Car car = hitAvatar.GetComponent<Car>();
                     if (car != null)
                     {
-                        car.DamageCar(hitAvatar.name, damage);
+                        if (car.DamageCar(hitAvatar.name, damage))
+                        {
+                            RacingManager.OnScorePlayerAdd?.Invoke(_avatar.Owner.Name, 1);
+                        }
                     }
                 }
             }

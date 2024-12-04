@@ -81,7 +81,7 @@ MonoBehaviour:
   destructAfter: 30
   missileBody: {fileID: 1485611839946665979}
   explosionObject: {fileID: 5889670951788328802, guid: dc934c177f8e6d948875265a44b669f7, type: 3}
-  damage: 50
+  damage: 25
 --- !u!114 &9173002445852884986
 MonoBehaviour:
   m_ObjectHideFlags: 0

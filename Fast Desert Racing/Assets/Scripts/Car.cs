@@ -396,9 +396,11 @@ public class Car : AttributesSync
         }
     }
 
-    public void DamageCar(string name, float damage)
+    public bool DamageCar(string name, float damage)
     {
         BroadcastRemoteMethod("SetHealthCar", name, _curHealth - damage);
+
+        return !_alreadyTriggeredDead ? ((_curHealth - damage) <= 0) : false;
     }
 
     private bool _alreadyTriggeredDead;

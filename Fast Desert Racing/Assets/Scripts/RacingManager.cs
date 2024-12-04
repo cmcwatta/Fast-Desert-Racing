@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
-public class RacingManager : MonoBehaviour
+public class RacingManager : AttributesSync
 {
     [SerializeField]
     private CinemachineVirtualCamera vCam;
@@ -56,6 +56,7 @@ public class RacingManager : MonoBehaviour
     [SerializeField]
     private GameObject playerInfoTemplate;
     private Dictionary<string, int> _playerScoreInfo = new Dictionary<string, int>();
+    public static Action<string, int> OnScorePlayerAdd;
 
     [SerializeField]
     private Transform[] spawnpoints;
@@ -115,12 +116,17 @@ public class RacingManager : MonoBehaviour
         OnMissilesCountUpdate += delegate (int count)
         {
             int index = 0;
-            foreach (Image image in missilesUIObject.GetComponentsInChildren<Image>())
+            try
             {
-                image.enabled = index < count;
-                index++;
+                foreach (Image image in missilesUIObject.GetComponentsInChildren<Image>())
+                {
+                    image.enabled = index < count;
+                    index++;
+                }
             }
+            catch (Exception _) { }
         };
+        OnScorePlayerAdd += AddScoreToPlayers;
     }
 
 
@@ -204,6 +210,25 @@ public class RacingManager : MonoBehaviour
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         cameraCenter.transform.rotation = Quaternion.Euler(0f, cameraCenter.transform.eulerAngles.y + mouseX, 0f);
+    }
+
+    private void AddScoreToPlayers(string name, int score)
+    {
+        if (_multiplayer.Me.IsHost)
+        {
+            if (_playerScoreInfo.ContainsKey(name)) _playerScoreInfo[name] += score;
+            else _playerScoreInfo[name] = score;
+
+            BroadcastRemoteMethod("UpdateScoreRPC", _playerScoreInfo);
+
+            Debug.Log("Player Add Score");
+        }
+    }
+
+    [SynchronizableMethod]
+    public void UpdateScoreRPC(Dictionary<string, int> scoreInfo)
+    {
+        _playerScoreInfo = scoreInfo;
     }
 
     private void UpdatePlayerList()
