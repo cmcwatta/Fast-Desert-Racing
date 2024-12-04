@@ -80,6 +80,16 @@ public class Car : AttributesSync
     private GameObject frontLights;
     private bool _flTurnedOn;
 
+    [Header("Missile")]
+    [SerializeField]
+    private GameObject missileObject;
+    [SerializeField]
+    private Transform missileOrigin;
+    [SerializeField]
+    private float delayRecoverMissile;
+    private float _curDelayRecoverMissile;
+    private int _maxMissiles = 3;
+    private int _curMissiles;
 
     private bool _isServer;
 
@@ -94,6 +104,8 @@ public class Car : AttributesSync
         _curHealth = maxHealth;
 
         _turboUsage = 100;
+
+        _curMissiles = _maxMissiles;
     }
 
     void Update()
@@ -134,11 +146,37 @@ public class Car : AttributesSync
 
         UpdateParticle();
 
+        UpdateMissile();
+
         BroadcastRemoteMethod("ChangeStyle", _avatar.name, PlayerPrefs.GetInt("Variation"));
 
         if (_isServer) BroadcastRemoteMethod("UpdateServerRPC", _avatar.name);
 
         RacingManager.OnSpeedUpdate?.Invoke(rb.velocity.magnitude);
+    }
+
+    private void UpdateMissile()
+    {
+        _curDelayRecoverMissile += Time.deltaTime;
+        if (_curDelayRecoverMissile > delayRecoverMissile)
+        {
+            _curDelayRecoverMissile = 0;
+            _curMissiles = Math.Clamp(_curMissiles + 1, 0, _maxMissiles);
+        }
+
+        RacingManager.OnMissilesCountUpdate?.Invoke(_curMissiles);
+
+        if (Input.GetMouseButtonDown(0) && _curMissiles > 0)
+        {
+            _curMissiles--;
+            foreach (Transform spawnPosition in missileOrigin.GetComponentsInChildren<Transform>())
+            {
+                if (spawnPosition == missileOrigin) continue;
+                Spawner spawner = GameObject.Find("Multiplayer").GetComponent<Spawner>();
+                Missile missile = spawner.Spawn(missileObject.name, spawnPosition.position).GetComponent<Missile>();
+                missile.transform.rotation = Quaternion.LookRotation(transform.forward);
+            }
+        }
     }
 
     private void UpdateFrontLight()
@@ -356,6 +394,11 @@ public class Car : AttributesSync
                 Debug.LogError(e.Message);
             }
         }
+    }
+
+    public void DamageCar(string name, float damage)
+    {
+        BroadcastRemoteMethod("SetHealthCar", name, _curHealth - damage);
     }
 
     private bool _alreadyTriggeredDead;

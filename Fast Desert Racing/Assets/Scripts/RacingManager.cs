@@ -4,6 +4,7 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
@@ -44,6 +45,17 @@ public class RacingManager : MonoBehaviour
     [SerializeField]
     private Slider nitroSlider;
     public static Action<float> OnNitroUpdate;
+    [SerializeField]
+    private GameObject missilesUIObject;
+    public static Action<int> OnMissilesCountUpdate;
+
+    [SerializeField]
+    private GameObject playerListUI;
+    [SerializeField]
+    private GameObject playerListPopulate;
+    [SerializeField]
+    private GameObject playerInfoTemplate;
+    private Dictionary<string, int> _playerScoreInfo = new Dictionary<string, int>();
 
     [SerializeField]
     private Transform[] spawnpoints;
@@ -100,6 +112,15 @@ public class RacingManager : MonoBehaviour
         {
             nitroSlider.value = percentage;
         };
+        OnMissilesCountUpdate += delegate (int count)
+        {
+            int index = 0;
+            foreach (Image image in missilesUIObject.GetComponentsInChildren<Image>())
+            {
+                image.enabled = index < count;
+                index++;
+            }
+        };
     }
 
 
@@ -116,11 +137,6 @@ public class RacingManager : MonoBehaviour
     {
         connectingPanel.SetActive(!_joined);
         gamePanel.SetActive(_joined);
-
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            OpenSettings();
-        }
 
         Alteruna.Avatar[] avatars = FindObjectsOfType<Alteruna.Avatar>();
 
@@ -159,6 +175,25 @@ public class RacingManager : MonoBehaviour
             PauseMenu();
         }
 
+        if (_joined && Input.GetKeyDown(KeyCode.P))
+        {
+            OpenSettings();
+        }
+
+        if (_joined && Input.GetKey(KeyCode.Tab))
+        {
+            playerListUI.SetActive(true);
+        }
+        else
+        {
+            playerListUI.SetActive(false);
+        }
+
+        if (_joined && Input.GetKeyDown(KeyCode.Tab))
+        {
+            UpdatePlayerList();
+        }
+
         if (_joined && Input.GetKeyDown(KeyCode.R))
         {
             radioPanel.SetActive(!radioPanel.activeSelf);
@@ -170,6 +205,32 @@ public class RacingManager : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         cameraCenter.transform.rotation = Quaternion.Euler(0f, cameraCenter.transform.eulerAngles.y + mouseX, 0f);
     }
+
+    private void UpdatePlayerList()
+    {
+        foreach (var pInfo in playerListPopulate.GetComponentsInChildren<RectTransform>())
+        {
+            if (pInfo.CompareTag("PlayerInfo") && pInfo.gameObject.activeSelf)
+            {
+                Destroy(pInfo.gameObject);
+            }
+        }
+
+        Alteruna.Avatar[] avatars = FindObjectsOfType<Alteruna.Avatar>().Where(x => x.GetComponent<Car>() != null).ToArray();
+        foreach (var avatar in avatars)
+        {
+            GameObject template = Instantiate(playerInfoTemplate, playerListPopulate.transform);
+            template.SetActive(true);
+            if (avatar.IsMe) template.GetComponent<Image>().color = new UnityEngine.Color(44f / 255f, 231f / 255f, 255f / 255f);
+            TMP_Text[] texts = template.GetComponentsInChildren<TMP_Text>();
+            texts[0].text = avatar.Owner.Name;
+            if (_playerScoreInfo.ContainsKey(avatar.Owner.Name))
+            {
+                texts[1].text = _playerScoreInfo[avatar.Owner.Name].ToString();
+            }
+        }
+    }
+ 
     private bool IsAlreadyJoined()
     {
         bool found = false;

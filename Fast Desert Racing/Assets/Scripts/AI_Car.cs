@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Sockets;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Avatar = Alteruna.Avatar;
