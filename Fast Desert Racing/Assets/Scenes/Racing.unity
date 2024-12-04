@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 0.99}
   m_AmbientEquatorColor: {r: 0.8633061, g: 0.9215096, b: 0.9244853, a: 0.99}
   m_AmbientGroundColor: {r: 0.7425, g: 0.7425, b: 0.7425, a: 0.99}
-  m_AmbientIntensity: 0.99
+  m_AmbientIntensity: 0
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.41960785, g: 0.47843137, b: 0.627451, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 4e154bf235e41704bbd6bbc6fd6c63f6, type: 2}
@@ -9240,16 +9240,51 @@ PrefabInstance:
       propertyPath: m_Name
       value: pyramid 2 (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2986965731713266858, guid: 37506a9a582ca9d4d8de2edb16f90a48, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5942072892464652487, guid: 37506a9a582ca9d4d8de2edb16f90a48, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2986965731713266858, guid: 37506a9a582ca9d4d8de2edb16f90a48, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 338124813}
   m_SourcePrefab: {fileID: 100100000, guid: 37506a9a582ca9d4d8de2edb16f90a48, type: 3}
 --- !u!4 &338124811 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2465726488859176464, guid: 37506a9a582ca9d4d8de2edb16f90a48, type: 3}
   m_PrefabInstance: {fileID: 338124810}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &338124812 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2986965731713266858, guid: 37506a9a582ca9d4d8de2edb16f90a48, type: 3}
+  m_PrefabInstance: {fileID: 338124810}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &338124813
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338124812}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1569481545725123955, guid: 0cc52b2f7b81d94449c6826e4af86c8c, type: 3}
 --- !u!1 &340522250
 GameObject:
   m_ObjectHideFlags: 0
@@ -11086,6 +11121,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1770225494}
     m_Modifications:
+    - target: {fileID: -374123516168695110, guid: a95c75f129a57dc408c0832348436b75, type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4657068300367135718, guid: a95c75f129a57dc408c0832348436b75, type: 3}
       propertyPath: m_LocalPosition.x
       value: 101.340294
@@ -11129,6 +11168,18 @@ PrefabInstance:
     - target: {fileID: 5470442384438188380, guid: a95c75f129a57dc408c0832348436b75, type: 3}
       propertyPath: m_Name
       value: ruin_building_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5470442384438188380, guid: a95c75f129a57dc408c0832348436b75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830497051288434825, guid: a95c75f129a57dc408c0832348436b75, type: 3}
+      propertyPath: m_ReceiveGI
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830497051288434825, guid: a95c75f129a57dc408c0832348436b75, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23869,7 +23920,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
-  m_Antialiasing: 0
+  m_Antialiasing: 3
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -23883,7 +23934,7 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
+    quality: 4
     frameInfluence: 0.1
     jitterScale: 1
     mipBias: 0
@@ -38547,7 +38598,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -38580,7 +38631,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
