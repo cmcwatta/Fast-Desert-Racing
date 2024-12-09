@@ -18273,7 +18273,7 @@ MonoBehaviour:
   - {fileID: 1102465667}
   - {fileID: 1794171774}
   - {fileID: 1802925958}
-  nukeScore: 1
+  nukeScore: 10
   nk: {fileID: 2035199702}
 --- !u!4 &576864149
 Transform:
@@ -40511,6 +40511,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 692193597}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1277145528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1277145529}
+  m_Layer: 0
+  m_Name: PositionExplosion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1277145529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277145528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -60.4, y: 0, z: -219.7}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2035199701}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1279696718
 GameObject:
@@ -64597,6 +64628,7 @@ Transform:
   m_Children:
   - {fileID: 1705591823}
   - {fileID: 499352190}
+  - {fileID: 1277145529}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2035199702
@@ -64614,6 +64646,9 @@ MonoBehaviour:
   nukeScene: {fileID: 1705591822}
   nukeSpawnTransform: {fileID: 499352190}
   nukeObject: {fileID: 3964030067961614297, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
+  nukeExplosion: {fileID: 1759264295834012, guid: 1ad926cca1581794ab3e1bea7071d003, type: 3}
+  nukeExplosionTransform: {fileID: 1277145529}
+  globalLight: {fileID: 1104302740}
 --- !u!1 &2038584839
 GameObject:
   m_ObjectHideFlags: 0
