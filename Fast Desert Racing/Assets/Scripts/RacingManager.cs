@@ -66,6 +66,7 @@ public class RacingManager : AttributesSync
     private int nukeScore;
     [SerializeField]
     private NukeHandle nk;
+    private bool nuked;
 
     private void Awake()
     {
@@ -148,7 +149,7 @@ public class RacingManager : AttributesSync
     private void Update()
     {
         connectingPanel.SetActive(!_joined);
-        gamePanel.SetActive(_joined);
+        gamePanel.SetActive(_joined && !nuked);
 
         Alteruna.Avatar[] avatars = FindObjectsOfType<Alteruna.Avatar>();
 
@@ -240,6 +241,7 @@ public class RacingManager : AttributesSync
     public void NukeRPC()
     {
         nk.StartNuke();
+        nuked = true;
     }
 
 
@@ -273,7 +275,7 @@ public class RacingManager : AttributesSync
             }
         }
     }
- 
+
     private bool IsAlreadyJoined()
     {
         bool found = false;

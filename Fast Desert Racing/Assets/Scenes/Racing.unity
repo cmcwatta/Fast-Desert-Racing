@@ -16315,7 +16315,7 @@ Transform:
   m_GameObject: {fileID: 499352189}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.6, y: 468, z: -174}
+  m_LocalPosition: {x: -60.4, y: 468, z: -219.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22516,63 +22516,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 494338, guid: ea8ec36c7f9b40f4faa40bf80afec5a3, type: 3}
   m_PrefabInstance: {fileID: 696800037}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &698489043
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3964030067961614297, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_Name
-      value: Nuke
-      objectReference: {fileID: 0}
-    - target: {fileID: 4343933997846467939, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 16.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4343933997846467939, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 468
-      objectReference: {fileID: 0}
-    - target: {fileID: 4343933997846467939, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -174
-      objectReference: {fileID: 0}
-    - target: {fileID: 4343933997846467939, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.6532815
-      objectReference: {fileID: 0}
-    - target: {fileID: 4343933997846467939, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.6532815
-      objectReference: {fileID: 0}
-    - target: {fileID: 4343933997846467939, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.27059805
-      objectReference: {fileID: 0}
-    - target: {fileID: 4343933997846467939, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.27059805
-      objectReference: {fileID: 0}
-    - target: {fileID: 4343933997846467939, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4343933997846467939, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4343933997846467939, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 45
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
 --- !u!1 &700696575
 GameObject:
   m_ObjectHideFlags: 0
@@ -26274,8 +26217,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825743277}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.053700395, y: 0.77719396, z: -0.47349307, w: -0.41096252}
-  m_LocalPosition: {x: 248.16193, y: 201.15721, z: -79.65529}
+  m_LocalRotation: {x: -0.121883765, y: -0.88757974, z: 0.40689898, w: 0.17826921}
+  m_LocalPosition: {x: 46.414455, y: 42.93477, z: -18.547623}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -54014,7 +53957,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1705591823
 Transform:
   m_ObjectHideFlags: 0
@@ -64669,6 +64612,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nukeScene: {fileID: 1705591822}
+  nukeSpawnTransform: {fileID: 499352190}
+  nukeObject: {fileID: 3964030067961614297, guid: 1280fb0bd23794b4ea5bcc8018f3abab, type: 3}
 --- !u!1 &2038584839
 GameObject:
   m_ObjectHideFlags: 0
@@ -66868,5 +66813,4 @@ SceneRoots:
   - {fileID: 17362235}
   - {fileID: 422577260}
   - {fileID: 1446920630}
-  - {fileID: 698489043}
   - {fileID: 2035199701}
