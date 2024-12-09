@@ -71,7 +71,12 @@ public class Missile : MonoBehaviour
             Avatar hitAvatar = GetHighestParent(hit).GetComponent<Avatar>();
             if (hitAvatar != null)
             {
-                if (hitAvatar.IsMe)
+                AI_Car npc = hitAvatar.GetComponent<AI_Car>();
+                if (npc != null)
+                {
+                    npc.Death(_avatar.Owner.Name);
+                }
+                else if (hitAvatar.IsMe)
                 {
                     return;
                 }

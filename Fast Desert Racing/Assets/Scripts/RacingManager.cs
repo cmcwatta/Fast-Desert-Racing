@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using TMPro;
+using Unity.Properties;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -60,6 +61,11 @@ public class RacingManager : AttributesSync
 
     [SerializeField]
     private Transform[] spawnpoints;
+
+    [SerializeField]
+    private int nukeScore;
+    [SerializeField]
+    private NukeHandle nk;
 
     private void Awake()
     {
@@ -221,9 +227,21 @@ public class RacingManager : AttributesSync
 
             BroadcastRemoteMethod("UpdateScoreRPC", _playerScoreInfo);
 
+            if (_playerScoreInfo[name] >= nukeScore)
+            {
+                BroadcastRemoteMethod("NukeRPC");
+            }
+
             Debug.Log("Player Add Score");
         }
     }
+
+    [SynchronizableMethod]
+    public void NukeRPC()
+    {
+        nk.StartNuke();
+    }
+
 
     [SynchronizableMethod]
     public void UpdateScoreRPC(Dictionary<string, int> scoreInfo)

@@ -48,6 +48,8 @@ public class AI_Car : AttributesSync
 
     [SerializeField]
     private AudioSource engineAudio;
+
+    private bool _dead;
     void Start()
     {
         _agent = GetComponent<NavMeshAgent>();
@@ -152,6 +154,35 @@ public class AI_Car : AttributesSync
             catch (Exception e)
             {
                 Debug.LogError(e.Message);
+            }
+        }
+    }
+
+    public void Death(string nameAttacker)
+    {
+        BroadcastRemoteMethod("SyncDead", transform.position, nameAttacker);
+    }
+
+    [SynchronizableMethod]
+    public void SyncDead(Vector3 position, string nameAttacker)
+    {
+        AI_Car[] npcs = FindObjectsOfType<AI_Car>();
+        foreach (AI_Car npc in npcs)
+        {
+            if (Vector3.Distance(npc.transform.position, position) < 1)
+            {
+                if (Multiplayer.Me.IsHost)
+                {
+                    _dead = true;
+                    _agent.isStopped = true;
+
+                    Spawner spawner = GameObject.Find("Multiplayer").GetComponent<Spawner>();
+                    spawner.Spawn("Explosion", transform.position);
+                    spawner.Despawn(gameObject);
+
+                    RacingManager.OnScorePlayerAdd?.Invoke(nameAttacker, 1);
+                }
+                break;
             }
         }
     }
